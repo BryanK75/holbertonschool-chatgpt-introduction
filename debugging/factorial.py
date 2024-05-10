@@ -1,31 +1,35 @@
 #!/usr/bin/python3
 import sys
+import math
+"""
+factorial - calculate the factorial of a given number
+@n: the number of which to calculate the factorial
+Return: integer the factorial of the input number
+"""
 
-def factorial(n):
-    result = 1
-    while n > 1:
-        result *= n
-        n = n - 1
+def factorial (n):
+    if n < 0:
+        raise ValueError("Factoril is not defined for negative numbers")
+    elif n == 0:
+        return (1)
+    else:
+        result = 1
+        while n > 1:
+            result *= n
+            n -= 1
     return result
-
-# Check if the user provided an argument
 if len(sys.argv) != 2:
-    print("Usage: python3 script.py <number>")
+    print("Usage: python script.py <number>")
     sys.exit(1)
 
-# Try to convert the argument to an integer
 try:
-    number = int(sys.argv[1])
+    num = int (sys.argv[1])
 except ValueError:
-    print("Error: Please provide a valid integer as input.")
+    print("Please provide a valid integer")
     sys.exit(1)
-
-# Check if the number is non-negative
-if number < 0:
-    print("Error: Please provide a non-negative integer.")
+try:
+    f = factorial(num)
+    print(f)
+except ValueError as e:
+    print(e)
     sys.exit(1)
-
-# Calculate and print the factorial
-f = factorial(number)
-print(f)
-
