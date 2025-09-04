@@ -40,14 +40,22 @@ class Minesweeper:
         return count
 
     def reveal(self, x, y):
+        # Check if coordinates are within bounds
+        if not (0 <= x < self.width and 0 <= y < self.height):
+            return True  # Ignore invalid input, don’t end the game
+
         if (y * self.width + x) in self.mines:
             return False
+
         self.revealed[y][x] = True
+
         if self.count_mines_nearby(x, y) == 0:
             for dx in [-1, 0, 1]:
                 for dy in [-1, 0, 1]:
                     nx, ny = x + dx, y + dy
-                    if 0 <= nx < self.width and 0 <= ny < self.height and not self.revealed[ny][nx]:
+                    if (0 <= nx < self.width and 
+                        0 <= ny < self.height and 
+                        not self.revealed[ny][nx]):
                         self.reveal(nx, ny)
         return True
 
@@ -57,6 +65,12 @@ class Minesweeper:
             try:
                 x = int(input("Enter x coordinate: "))
                 y = int(input("Enter y coordinate: "))
+
+                # Prevent out-of-range input
+                if not (0 <= x < self.width and 0 <= y < self.height):
+                    print("Coordinates out of range! Try again.")
+                    continue
+
                 if not self.reveal(x, y):
                     self.print_board(reveal=True)
                     print("Game Over! You hit a mine.")
@@ -79,3 +93,4 @@ class Minesweeper:
 if __name__ == "__main__":
     game = Minesweeper()
     game.play()
+
