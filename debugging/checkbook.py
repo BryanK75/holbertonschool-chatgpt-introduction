@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 class Checkbook:
     """
     A simple checkbook class to track deposits, withdrawals, and the current balance.
